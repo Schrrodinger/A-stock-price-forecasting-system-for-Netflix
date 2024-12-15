@@ -5,6 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, mean_absolute_percentage_error
 import matplotlib.pyplot as plt
 import seaborn as sns
+import statsmodels.api as sm
 
 # Load the data
 df = pd.read_csv('dataset/FE_NFLX.csv', parse_dates=['Date'])
@@ -51,6 +52,12 @@ print(f"Root Mean Squared Error (RMSE): {rmse:.4f}")
 print(f"Mean Absolute Error (MAE): {mae:.4f}")
 print(f"Mean Absolute Percentage Error (MAPE): {mape*100:.2f}%")
 print(f"R-squared (R2) Score: {r2:.4f}")
+
+# OLS Summary Table
+X_train_sm = sm.add_constant(X_train)
+model_sm = sm.OLS(y_train, X_train_sm).fit()
+print("\nOLS Summary:")
+print(model_sm.summary())
 
 # Feature Importance
 feature_importance = pd.DataFrame({
