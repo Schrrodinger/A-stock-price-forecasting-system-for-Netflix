@@ -6,6 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, m
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
+import joblib
 
 # Load the data
 df = pd.read_csv('dataset/FE_NFLX.csv', parse_dates=['Date'])
@@ -43,6 +44,20 @@ rmse = np.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 mape = mean_absolute_percentage_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
+
+# Save the model with metadata
+model_metadata = {
+    'model': model,
+    'features': features,
+    'training_date': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+    'performance_metrics': {
+        'MAPE': mape,
+        'R2': r2
+    }
+}
+
+# Save the model and metadata
+joblib.dump(model_metadata, 'linear_regression_model.pkl')
 
 # Print model performance metrics
 print(f"Best model: Linear Regression")
