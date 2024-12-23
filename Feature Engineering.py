@@ -79,7 +79,7 @@ def calculate_atr(df, period=14):
 def main():
 
     print("Starting feature engineering...")
-    df = pd.read_csv("preprocessed_exp.csv")
+    df = pd.read_csv("dataset/preprocessed__data_spark.csv")
     print("Data loaded, shape:", df.shape)
 
     # Engineer features
@@ -91,7 +91,7 @@ def main():
     print(df_features.isnull().sum())
 
     # Save the new dataset
-    df_features.to_csv("FE_NFLX.csv")
+    df_features.to_csv("dataset/FE_NFLX_new.csv")
     print("Data saved to FE_NFLX.csv")
 
     return df_features
